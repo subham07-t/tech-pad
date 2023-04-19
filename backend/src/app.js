@@ -1,29 +1,35 @@
 const express = require("express");
-const app = express();
 const path = require("path");
-const { logger } = require("./middleware/logger");
-const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = require("../config/corsOptions");
+const { logger } = require("./middleware/logger");
+const errorHandler = require("./middleware/errorHandler");
 const connectDB = require("../config/dbConn");
 
 // .env file configuration
 require("dotenv").config();
+
 const PORT = process.env.PORT || 5000;
 const mongoDbUrl = process.env.MONGO_DB_URL;
-// connectDB(mongoDbUrl);
 
-// routes define
-const rootRoute = require("./routes/root");
+const app = express();
 
+// Connect to the database
+connectDB(mongoDbUrl);
+
+// Middleware
 app.use(logger);
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, "..", "/public")));
+
+// Routes
+const rootRoute = require("./routes/root");
 app.use("/", rootRoute);
 
+// Handle 404 errors
 app.all("*", (req, res) => {
   res.status(404);
   if (req.accepts("html")) {
@@ -35,12 +41,10 @@ app.all("*", (req, res) => {
   }
 });
 
+// Error handling middleware
 app.use(errorHandler);
 
-// DB connection
-connectDB(mongoDbUrl);
-
-// server listening
+// Start the server
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);
 });

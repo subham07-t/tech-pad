@@ -6,10 +6,13 @@ const errorHandler = require("./middleware/errorHandler");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const corsOptions = require("../config/corsOptions");
+const connectDB = require("../config/dbConn");
 
 // .env file configuration
 require("dotenv").config();
 const PORT = process.env.PORT || 5000;
+const mongoDbUrl = process.env.MONGO_DB_URL;
+// connectDB(mongoDbUrl);
 
 // routes define
 const rootRoute = require("./routes/root");
@@ -33,6 +36,10 @@ app.all("*", (req, res) => {
 });
 
 app.use(errorHandler);
+
+// DB connection
+connectDB(mongoDbUrl);
+
 // server listening
 app.listen(PORT, () => {
   console.log(`server is running on port ${PORT}`);

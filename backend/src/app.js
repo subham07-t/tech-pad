@@ -28,8 +28,10 @@ app.use("/", express.static(path.join(__dirname, "..", "/public")));
 // Routes
 const rootRoute = require("./routes/root");
 const userRoute = require("./routes/userRoute");
+const noteRoute = require("./routes/noteRoute");
 app.use("/", rootRoute);
 app.use("/users", userRoute);
+app.use("/notes", noteRoute);
 
 // Handle 404 errors
 app.all("*", (req, res) => {

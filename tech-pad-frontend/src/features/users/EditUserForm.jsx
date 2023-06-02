@@ -40,7 +40,7 @@ const EditUserForm = ({ user }) => {
       setUsername("");
       setPassword("");
       setRoles([]);
-      navigate("/dash/users");
+      navigate("/dashboard/users");
     }
   }, [isSuccess, isDelSuccess, navigate]);
 

@@ -19,7 +19,7 @@ const NewNoteForm = ({ users }) => {
       setTitle("");
       setText("");
       setUserId("");
-      navigate("/dash/notes");
+      navigate("/dashboard/notes");
     }
   }, [isSuccess, navigate]);
 

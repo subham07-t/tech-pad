@@ -33,7 +33,7 @@ const NewUserForm = () => {
       setUsername("");
       setPassword("");
       setRoles([]);
-      navigate("/dash/users");
+      navigate("/dashboard/users");
     }
   }, [isSuccess, navigate]);
 

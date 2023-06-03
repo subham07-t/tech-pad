@@ -12,3 +12,7 @@ export const store = configureStore({
 });
 
 setupListeners(store.dispatch);
+
+/* Note */
+
+// setupListeners(store.dispatch) is typically called once in your application's store configuration file, and it sets up global event listeners to handle API request lifecycle actions across the entire application. By using this we don't need to handle the lifecycle actions manually in each component.

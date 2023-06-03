@@ -10,16 +10,13 @@ const Welcome = () => {
   const content = (
     <section className="welcome">
       <p>{today}</p>
-
       <h1>Welcome!</h1>
-
       <p>
         <Link to="/dashboard/notes">View techNotes</Link>
       </p>
       <p>
         <Link to="/dashboard/notes/new">Add New techNote</Link>
       </p>
-
       <p>
         <Link to="/dashboard/users">View User Settings</Link>
       </p>

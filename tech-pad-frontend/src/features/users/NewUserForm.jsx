@@ -74,7 +74,7 @@ const NewUserForm = () => {
     ? "form__input--incomplete"
     : "";
 
-  const content = (
+  return (
     <>
       <p className={errClass}>{error?.data?.message}</p>
 
@@ -87,49 +87,52 @@ const NewUserForm = () => {
             </button>
           </div>
         </div>
-        <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
-        </label>
-        <input
-          className={`form__input ${validUserClass}`}
-          id="username"
-          name="username"
-          type="text"
-          autoComplete="off"
-          value={username}
-          onChange={onUsernameChanged}
-        />
 
-        <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-        </label>
-        <input
-          className={`form__input ${validPwdClass}`}
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={onPasswordChanged}
-        />
-
-        <label className="form__label" htmlFor="roles">
-          ASSIGNED ROLES:
-        </label>
-        <select
-          id="roles"
-          name="roles"
-          className={`form__select ${validRolesClass}`}
-          multiple={true}
-          size="3"
-          value={roles}
-          onChange={onRolesChanged}
-        >
-          {options}
-        </select>
+        <div>
+          <label className="form__label" htmlFor="username">
+            Username: <span className="nowrap">[3-20 letters]</span>
+          </label>
+          <input
+            className={`form__input ${validUserClass}`}
+            id="username"
+            name="username"
+            type="text"
+            autoComplete="off"
+            value={username}
+            onChange={onUsernameChanged}
+          />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="password">
+            Password: <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+          </label>
+          <input
+            className={`form__input ${validPwdClass}`}
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={onPasswordChanged}
+          />
+        </div>
+        <div>
+          <label className="form__label" htmlFor="roles">
+            ASSIGNED ROLES:
+          </label>
+          <select
+            id="roles"
+            name="roles"
+            className={`form__select ${validRolesClass}`}
+            multiple={true}
+            size="3"
+            value={roles}
+            onChange={onRolesChanged}
+          >
+            {options}
+          </select>
+        </div>
       </form>
     </>
   );
-
-  return content;
 };
 export default NewUserForm;

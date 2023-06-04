@@ -14,13 +14,9 @@ const NotesList = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  let content;
+  if (isLoading) return <p>Loading...</p>;
 
-  if (isLoading) content = <p>Loading...</p>;
-
-  if (isError) {
-    content = <p>{error?.data?.message}</p>;
-  }
+  if (isError) return <p>{error?.data?.message}</p>;
 
   if (isSuccess) {
     const { ids } = notes;
@@ -29,7 +25,7 @@ const NotesList = () => {
       ? ids.map((noteId) => <Note key={noteId} noteId={noteId} />)
       : null;
 
-    content = (
+    return (
       <table className="table table--notes">
         <thead className="table__thead">
           <tr>
@@ -57,7 +53,5 @@ const NotesList = () => {
       </table>
     );
   }
-
-  return content;
 };
 export default NotesList;

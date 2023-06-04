@@ -62,45 +62,51 @@ const NewNoteForm = ({ users }) => {
             </button>
           </div>
         </div>
-        <label className="form__label" htmlFor="title">
-          Title:
-        </label>
-        <input
-          className={`form__input ${validTitleClass}`}
-          id="title"
-          name="title"
-          type="text"
-          autoComplete="off"
-          value={title}
-          onChange={onTitleChanged}
-        />
+        <div>
+          <label className="form__label" htmlFor="title">
+            Title:
+          </label>
+          <input
+            className={`form__input ${validTitleClass}`}
+            id="title"
+            name="title"
+            type="text"
+            autoComplete="off"
+            value={title}
+            onChange={onTitleChanged}
+          />
+        </div>
 
-        <label className="form__label" htmlFor="text">
-          Text:
-        </label>
-        <textarea
-          className={`form__input form__input--text ${validTextClass}`}
-          id="text"
-          name="text"
-          value={text}
-          onChange={onTextChanged}
-        />
+        <div>
+          <label className="form__label" htmlFor="text">
+            Text:
+          </label>
+          <textarea
+            className={`form__input form__input--text ${validTextClass}`}
+            id="text"
+            name="text"
+            value={text}
+            onChange={onTextChanged}
+          />
+        </div>
 
-        <label
-          className="form__label form__checkbox-container"
-          htmlFor="username"
-        >
-          ASSIGNED TO:
-        </label>
-        <select
-          id="username"
-          name="username"
-          className="form__select"
-          value={userId}
-          onChange={onUserIdChanged}
-        >
-          {options}
-        </select>
+        <div>
+          <label
+            className="form__label form__checkbox-container"
+            htmlFor="username"
+          >
+            ASSIGNED TO:
+          </label>
+          <select
+            id="username"
+            name="username"
+            className="form__select"
+            value={userId}
+            onChange={onUserIdChanged}
+          >
+            {options}
+          </select>
+        </div>
       </form>
     </>
   );

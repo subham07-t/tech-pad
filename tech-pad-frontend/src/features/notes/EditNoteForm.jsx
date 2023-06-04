@@ -78,7 +78,7 @@ const EditNoteForm = ({ note, users }) => {
 
   const errContent = (error?.data?.message || delerror?.data?.message) ?? "";
 
-  const content = (
+  return (
     <>
       <p className={errClass}>{errContent}</p>
 
@@ -103,29 +103,34 @@ const EditNoteForm = ({ note, users }) => {
             </button>
           </div>
         </div>
-        <label className="form__label" htmlFor="note-title">
-          Title:
-        </label>
-        <input
-          className={`form__input ${validTitleClass}`}
-          id="note-title"
-          name="title"
-          type="text"
-          autoComplete="off"
-          value={title}
-          onChange={onTitleChanged}
-        />
 
-        <label className="form__label" htmlFor="note-text">
-          Text:
-        </label>
-        <textarea
-          className={`form__input form__input--text ${validTextClass}`}
-          id="note-text"
-          name="text"
-          value={text}
-          onChange={onTextChanged}
-        />
+        <div>
+          <label className="form__label" htmlFor="note-title">
+            Title:
+          </label>
+          <input
+            className={`form__input ${validTitleClass}`}
+            id="note-title"
+            name="title"
+            type="text"
+            autoComplete="off"
+            value={title}
+            onChange={onTitleChanged}
+          />
+        </div>
+
+        <div>
+          <label className="form__label" htmlFor="note-text">
+            Text:
+          </label>
+          <textarea
+            className={`form__input form__input--text ${validTextClass}`}
+            id="note-text"
+            name="text"
+            value={text}
+            onChange={onTextChanged}
+          />
+        </div>
         <div className="form__row">
           <div className="form__divider">
             <label
@@ -175,8 +180,6 @@ const EditNoteForm = ({ note, users }) => {
       </form>
     </>
   );
-
-  return content;
 };
 
 export default EditNoteForm;

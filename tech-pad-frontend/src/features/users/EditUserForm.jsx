@@ -1,3 +1,4 @@
+import React from "react";
 import { useState, useEffect } from "react";
 import { useUpdateUserMutation, useDeleteUserMutation } from "./usersApiSlice";
 import { useNavigate } from "react-router-dom";
@@ -35,7 +36,6 @@ const EditUserForm = ({ user }) => {
   }, [password]);
 
   useEffect(() => {
-    console.log(isSuccess);
     if (isSuccess || isDelSuccess) {
       setUsername("");
       setPassword("");
@@ -43,7 +43,6 @@ const EditUserForm = ({ user }) => {
       navigate("/dashboard/users");
     }
   }, [isSuccess, isDelSuccess, navigate]);
-
   const onUsernameChanged = (e) => setUsername(e.target.value);
   const onPasswordChanged = (e) => setPassword(e.target.value);
 
@@ -68,7 +67,6 @@ const EditUserForm = ({ user }) => {
   const onDeleteUserClicked = async () => {
     await deleteUser({ id: user.id });
   };
-
   const options = Object.values(ROLES).map((role) => {
     return (
       <option key={role} value={role}>
@@ -77,7 +75,6 @@ const EditUserForm = ({ user }) => {
       </option>
     );
   });
-
   let canSave;
   if (password) {
     canSave =
@@ -85,7 +82,6 @@ const EditUserForm = ({ user }) => {
   } else {
     canSave = [roles.length, validUsername].every(Boolean) && !isLoading;
   }
-
   const errClass = isError || isDelError ? "errmsg" : "offscreen";
   const validUserClass = !validUsername ? "form__input--incomplete" : "";
   const validPwdClass =
@@ -93,10 +89,9 @@ const EditUserForm = ({ user }) => {
   const validRolesClass = !Boolean(roles.length)
     ? "form__input--incomplete"
     : "";
-
   const errContent = (error?.data?.message || delerror?.data?.message) ?? "";
 
-  const content = (
+  return (
     <>
       <p className={errClass}>{errContent}</p>
 
@@ -121,65 +116,69 @@ const EditUserForm = ({ user }) => {
             </button>
           </div>
         </div>
-        <label className="form__label" htmlFor="username">
-          Username: <span className="nowrap">[3-20 letters]</span>
-        </label>
-        <input
-          className={`form__input ${validUserClass}`}
-          id="username"
-          name="username"
-          type="text"
-          autoComplete="off"
-          value={username}
-          onChange={onUsernameChanged}
-        />
-
-        <label className="form__label" htmlFor="password">
-          Password: <span className="nowrap">[empty = no change]</span>{" "}
-          <span className="nowrap">[4-12 chars incl. !@#$%]</span>
-        </label>
-        <input
-          className={`form__input ${validPwdClass}`}
-          id="password"
-          name="password"
-          type="password"
-          value={password}
-          onChange={onPasswordChanged}
-        />
-
-        <label
-          className="form__label form__checkbox-container"
-          htmlFor="user-active"
-        >
-          ACTIVE:
+        <div>
+          <label className="form__label" htmlFor="username">
+            Username: <span className="nowrap">[3-20 letters]</span>
+          </label>
           <input
-            className="form__checkbox"
-            id="user-active"
-            name="user-active"
-            type="checkbox"
-            checked={active}
-            onChange={onActiveChanged}
+            className={`form__input ${validUserClass}`}
+            id="username"
+            name="username"
+            type="text"
+            autoComplete="off"
+            value={username}
+            onChange={onUsernameChanged}
           />
-        </label>
-
-        <label className="form__label" htmlFor="roles">
-          ASSIGNED ROLES:
-        </label>
-        <select
-          id="roles"
-          name="roles"
-          className={`form__select ${validRolesClass}`}
-          multiple={true}
-          size="3"
-          value={roles}
-          onChange={onRolesChanged}
-        >
-          {options}
-        </select>
+        </div>
+        <div>
+          <label className="form__label" htmlFor="password">
+            Password: <span className="nowrap">[empty = no change]</span>{" "}
+            <span className="nowrap">[4-12 chars incl. !@#$%]</span>
+          </label>
+          <input
+            className={`form__input ${validPwdClass}`}
+            id="password"
+            name="password"
+            type="password"
+            value={password}
+            onChange={onPasswordChanged}
+          />
+        </div>
+        <div>
+          <label
+            className="form__label form__checkbox-container"
+            htmlFor="user-active"
+          >
+            ACTIVE:
+            <input
+              className="form__checkbox"
+              id="user-active"
+              name="user-active"
+              type="checkbox"
+              checked={active}
+              onChange={onActiveChanged}
+            />
+          </label>
+        </div>
+        <div>
+          <label className="form__label" htmlFor="roles">
+            ASSIGNED ROLES:
+          </label>
+          <select
+            id="roles"
+            name="roles"
+            className={`form__select ${validRolesClass}`}
+            multiple={true}
+            size="3"
+            value={roles}
+            onChange={onRolesChanged}
+          >
+            {options}
+          </select>
+        </div>
       </form>
     </>
   );
-
-  return content;
 };
+
 export default EditUserForm;

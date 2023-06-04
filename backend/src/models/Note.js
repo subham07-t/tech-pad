@@ -19,6 +19,10 @@ const noteSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    ticket: {
+      type: Number,
+      required: true,
+    },
   },
   {
     timestamps: true,

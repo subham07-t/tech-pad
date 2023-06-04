@@ -48,8 +48,18 @@ const createNewNote = asyncHandler(async (req, res) => {
     return res.status(409).json({ message: "Duplicate note title" });
   }
 
+  // Get the latest note to determine the ticket/serial number
+  const latestNote = await Note.findOne(
+    {},
+    {},
+    { sort: { ticket: -1 } }
+  ).lean();
+
+  // Calculate the ticket/serial number
+  const ticket = latestNote ? latestNote.ticket + 1 : 1;
+
   // Create and store the new user
-  const note = await Note.create({ user, title, text });
+  const note = await Note.create({ user, title, text, ticket });
 
   if (note) {
     // Created
@@ -119,7 +129,20 @@ const deleteNote = asyncHandler(async (req, res) => {
     return res.status(400).json({ message: "Note not found" });
   }
 
+  // Get the ticket number of the note to be deleted
+  const deletedTicket = note.ticket;
+
   const result = await note.deleteOne();
+
+  // Reorder the ticket numbers of the remaining notes
+  const remainingNotes = await Note.find({
+    ticket: { $gt: deletedTicket },
+  }).exec();
+
+  for (let i = 0; i < remainingNotes.length; i++) {
+    remainingNotes[i].ticket -= 1;
+    await remainingNotes[i].save();
+  }
 
   const reply = `Note '${result.title}' with ID ${result._id} deleted`;
 

@@ -28,9 +28,11 @@ app.use("/", express.static(path.join(__dirname, "..", "/public")));
 
 // Routes
 const rootRoute = require("./routes/root");
+const authRoute = require("./routes/authRoute");
 const userRoute = require("./routes/userRoute");
 const noteRoute = require("./routes/noteRoute");
 app.use("/", rootRoute);
+app.use("/auth", authRoute);
 app.use("/users", userRoute);
 app.use("/notes", noteRoute);
 

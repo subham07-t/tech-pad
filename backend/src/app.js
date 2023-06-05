@@ -2,7 +2,7 @@ const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
-// const corsOptions = require("../config/corsOptions");
+const corsOptions = require("../config/corsOptions");
 const { logger } = require("./middleware/logger");
 const errorHandler = require("./middleware/errorHandler");
 const connectDB = require("../config/dbConn");
@@ -20,8 +20,8 @@ connectDB(mongoDbUrl);
 
 // Middleware
 app.use(logger);
-app.use(cors());
-// app.use(cors(corsOptions));
+// app.use(cors());
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/", express.static(path.join(__dirname, "..", "/public")));

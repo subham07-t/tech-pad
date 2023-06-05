@@ -20,7 +20,6 @@ connectDB(mongoDbUrl);
 
 // Middleware
 app.use(logger);
-// app.use(cors());
 app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());

@@ -1,8 +1,11 @@
 import { useGetNotesQuery } from "./notesApiSlice";
 import Note from "./Note";
 import useAuth from "../../hooks/useAuth"
+import PulseLoader from 'react-spinners/PulseLoader'
+import useTitle from "../../hooks/useTitle";
 
 const NotesList = () => {
+  useTitle('Notes List')
   const { username, isManager, isAdmin } = useAuth()
   const {
     data: notes,
@@ -16,7 +19,7 @@ const NotesList = () => {
     refetchOnMountOrArgChange: true,
   });
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading) return <PulseLoader color={"#FFF"} />;
 
   if (isError) return <p>{error?.data?.message}</p>;
 

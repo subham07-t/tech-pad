@@ -15,9 +15,11 @@ import Prefetch from "./features/auth/prefetch";
 import PersistLogin from "./features/auth/PersistLogin";
 import RequireAuth from './features/auth/RequireAuth'
 import { ROLES } from './config/role'
+import useTitle from './hooks/useTitle';
 
 
 const App = () => {
+  useTitle('Dashboard')
   return (
     <Routes>
       <Route path="/" element={<Layout />}>
